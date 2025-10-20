@@ -1,0 +1,35 @@
+.message-node {
+  width: 160px;
+  height: 40px;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.message-node p {
+  margin: 0;
+  font-size: 8px;
+}
+
+.message-node-header {
+  font-weight: bold;
+  background-color: #b3f0e4;
+  border-radius: 5px 5px 0 0;
+  padding: 3px 12px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 8px;
+}
+
+.message-node-content {
+  padding: 6px;
+}
+
+.react-flow__handle {
+  width: 2px;
+  height: 2px;
+  background-color: #575757;
+  border: 1px solid #fff;
+  opacity: 0.8;
+}

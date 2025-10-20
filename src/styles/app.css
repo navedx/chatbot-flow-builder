@@ -1,0 +1,49 @@
+.app {
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 1rem 2rem; /* vertical + horizontal space */
+}
+
+.flow-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100vh;
+}
+
+.panel {
+  width: 30%;
+  height: 100vh;
+  padding: 1rem;
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+}
+
+.panel--text-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 2rem;
+  border: 1px solid blue;
+  width: 40%;
+  border-radius: 8px;
+  cursor: pointer;
+  color: blue;
+}
+
+.react-flow__attribution {
+  display: none !important;
+}
