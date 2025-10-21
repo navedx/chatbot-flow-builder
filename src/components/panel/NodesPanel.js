@@ -1,7 +1,6 @@
-import { MessageNodeIcon } from './Icons';
-import { useDrag } from 'react-dnd';
+import { MessageNodeIcon } from '../ui/Icons';
 import Node from './Node';
-import { TEXT_NODE } from '../constants';
+import { TEXT_NODE } from '../../constants';
 
 const nodes = [
   {

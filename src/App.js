@@ -1,5 +1,5 @@
 import './styles/app.css';
-import NodesPanel from './components/NodesPanel';
+import NodesPanel from './components/panel/NodesPanel';
 import Flow from './components/Flow';
 import Header from './components/Header';
 import { DndProvider } from 'react-dnd';

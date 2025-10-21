@@ -1,6 +1,6 @@
 import '../../styles/message-node.css';
 import { Handle, Position } from '@xyflow/react';
-import { MessageNodeIcon, WhatsappNodeIcon } from '../Icons';
+import { MessageNodeIcon, WhatsappNodeIcon } from '../ui/Icons';
 
 export function TextNode(props) {
   return (
