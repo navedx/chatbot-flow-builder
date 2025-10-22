@@ -1,8 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
-const SelectedNodeContext = createContext();
-
-export const useSelectedNode = () => useContext(SelectedNodeContext);
+export const SelectedNodeContext = createContext();
 
 export const SelectedNodeProvider = ({ children }) => {
   const [selectedNode, setSelectedNode] = useState(null);

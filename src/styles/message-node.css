@@ -25,6 +25,10 @@
   gap: 2px;
 }
 
+.message-node-header p {
+  margin-right: 3.5rem;
+}
+
 .message-node-content {
   padding: 6px;
 }

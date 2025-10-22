@@ -1,8 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
-const NodeDataContext = createContext();
-
-export const useNodeData = () => useContext(NodeDataContext);
+export const NodeDataContext = createContext();
 
 export const NodeDataProvider = ({ children }) => {
     const [nodes, setNodes] = useState([]);

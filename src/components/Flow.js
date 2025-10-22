@@ -1,18 +1,20 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useRef, useCallback } from 'react';
 import {
   ReactFlow,
   ReactFlowProvider,
   useReactFlow,
   applyNodeChanges,
   addEdge,
+  getIncomers,
+  getOutgoers,
+  getConnectedEdges,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { TextNode } from './nodes/TextNode';
 import { CustomEdge } from './CustomEdge';
 import { useDrop } from 'react-dnd';
 import { TEXT_NODE } from '../constants';
-import { useSelectedNode } from '../context/SelectedNodeContext';
-import { useNodeData } from '../context/NodeDataContext';
+import { useSelectedNode, useNodeData, useEdges } from '../context';
 
 const nodeTypes = { textNode: TextNode };
 const edgeTypes = {
@@ -21,7 +23,7 @@ const edgeTypes = {
 
 const FlowCanvas = () => {
   const { nodes, setNodes } = useNodeData();
-  const [edges, setEdges] = useState([]);
+  const { edges, setEdges } = useEdges();
   const { selectedNode, setSelectedNode } = useSelectedNode();
   const reactFlowWrapper = useRef(null);
   const { screenToFlowPosition } = useReactFlow();
@@ -72,6 +74,42 @@ const FlowCanvas = () => {
     setSelectedNode((prev) => (prev?.id === node?.id ? null : node));
   }, []);
 
+  const onNodesDelete = useCallback(
+    (deleted) => {
+      let remainingNodes = [...nodes];
+
+      // Check if the selected node is being deleted
+      const isSelectedNodeDeleted = deleted.some(node => node.id === selectedNode?.id);
+      if (isSelectedNodeDeleted) {
+        setSelectedNode(null);
+      }
+
+      setEdges(
+        deleted.reduce((acc, node) => {
+          const incomers = getIncomers(node, remainingNodes, acc);
+          const outgoers = getOutgoers(node, remainingNodes, acc);
+          const connectedEdges = getConnectedEdges([node], acc);
+
+          const remainingEdges = acc.filter((edge) => !connectedEdges.includes(edge));
+
+          const createdEdges = incomers.flatMap(({ id: source }) =>
+            outgoers.map(({ id: target }) => ({
+              id: `${source}->${target}`,
+              source,
+              target,
+            })),
+          );
+
+          remainingNodes = remainingNodes.filter((rn) => rn.id !== node.id);
+
+          return [...remainingEdges, ...createdEdges];
+        }, edges),
+      );
+    },
+    [nodes, edges, selectedNode, setSelectedNode],
+  );
+
+
   const styledNodes = nodes?.map((node) => ({
     ...node,
     style: {
@@ -88,6 +126,7 @@ const FlowCanvas = () => {
         edgeTypes={edgeTypes}
         nodeTypes={nodeTypes}
         onNodesChange={onNodesChange}
+        onNodesDelete={onNodesDelete}
         onConnect={onConnect}
         onNodeClick={onNodeClick}
         fitView

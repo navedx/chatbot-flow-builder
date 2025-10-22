@@ -1,8 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
-const MessageContext = createContext();
-
-export const useMessage = () => useContext(MessageContext);
+export const MessageContext = createContext();
 
 export const MessageProvider = ({ children }) => {
     const [message, setMessage] = useState('');

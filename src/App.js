@@ -7,23 +7,28 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { SelectedNodeProvider } from './context/SelectedNodeContext';
 import { MessageProvider } from './context/MessageContext';
 import { NodeDataProvider } from './context/NodeDataContext';
+import { EdgesProvider } from './context/EdgesContext';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <div className="app">
-      <NodeDataProvider>
-        <SelectedNodeProvider>
-          <MessageProvider>
-            <Header />
-            <div className="flow-container">
-              <DndProvider backend={HTML5Backend}>
-                <Flow />
-                <SidePanel />
-              </DndProvider>
-            </div>
-          </MessageProvider>
-        </SelectedNodeProvider>
-      </NodeDataProvider>
+        <NodeDataProvider>
+          <EdgesProvider>
+            <SelectedNodeProvider>
+              <MessageProvider>
+              <Header />
+              <div className="flow-container">
+                <DndProvider backend={HTML5Backend}>
+                  <Flow />
+                  <SidePanel />
+                </DndProvider>
+              </div>
+              </MessageProvider>
+            </SelectedNodeProvider>
+          </EdgesProvider>
+          <Toaster reverseOrder={false} />
+        </NodeDataProvider>
     </div>
   );
 }

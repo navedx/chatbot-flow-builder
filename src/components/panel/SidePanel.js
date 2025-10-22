@@ -1,4 +1,4 @@
-import { useSelectedNode } from '../../context/SelectedNodeContext';
+import { useSelectedNode } from '../../context';
 import NodesPanel from './NodesPanel';
 import SettingsPanel from './SettingsPanel';
 
