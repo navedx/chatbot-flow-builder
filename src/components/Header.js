@@ -7,13 +7,18 @@ export default function Header() {
   const { edges } = useEdges();
 
   const handleSave = () => {
+    if (nodes.length === 0) {
+      toast.error('No nodes to save', { style : { background: '#fdcacb' } });
+      return;
+    }
+
     // 1️. Check for disconnected nodes
     const nodesWithoutTarget = nodes?.filter(
       node => !edges.some(edge => edge.target === node.id)
     );
 
     if (nodes.length > 1 && nodesWithoutTarget.length > 1) {
-      toast.error('Cannot save flow');
+      toast.error('Cannot save flow', { style : { background: '#fdcacb' } });
       return; 
     }
 
@@ -36,8 +41,6 @@ export default function Header() {
     // 3 Save
     const flow = { nodes: cleanNodes, edges: cleanEdges };
     localStorage.setItem('flow', JSON.stringify(flow));
-
-    // 4. Success toast
     toast.success('Flow saved successfully!');
   };
   return (

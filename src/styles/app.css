@@ -23,7 +23,16 @@ textarea:focus {
   align-items: center;
   justify-content: end;
   padding: 1rem 2rem;
-  /* vertical + horizontal space */
+}
+
+.header button:hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.header button:active {
+  transform: scale(0.98);
+  transition: transform 0.3s ease;
 }
 
 .flow-container {

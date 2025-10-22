@@ -66,7 +66,20 @@ const FlowCanvas = () => {
   };
 
   const onConnect = (connection) => {
-    setEdges((prevEdges) => addEdge(connection, prevEdges));
+    setEdges((prevEdges) => {
+      // Check if source already has an outgoing edge
+      const sourceHasOutgoingEdge = prevEdges.some(edge => edge.source === connection.source);
+      
+      if (sourceHasOutgoingEdge) {
+        // Remove the existing outgoing edge from this source
+        const filteredEdges = prevEdges.filter(edge => edge.source !== connection.source);
+        // Add the new connection
+        return addEdge(connection, filteredEdges);
+      }
+      
+      // If no existing outgoing edge, just add the new connection
+      return addEdge(connection, prevEdges);
+    });
   };
 
   const onNodeClick = useCallback((event, node) => {
