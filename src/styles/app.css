@@ -35,17 +35,28 @@ textarea:focus {
 
 .panel {
   width: 30%;
-  /* padding: 1rem; */
+  display: flex;
   border-left: 1px solid #ccc;
   border-top: 1px solid #ccc;
+}
+
+.panel-column {
+  flex-direction: column;
 }
 
 .settings-header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   border-bottom: 1px solid #ccc;
   padding: 1rem;
+  position: relative;
+}
+
+.settings-header p {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .settings-content {
@@ -68,7 +79,8 @@ textarea:focus {
   align-items: center;
   padding: 2rem 0;
   border: 1px solid blue;
-  width: 45%;
+  width: 10rem;
+  height: 3rem;
   border-radius: 8px;
   cursor: pointer;
   color: blue;

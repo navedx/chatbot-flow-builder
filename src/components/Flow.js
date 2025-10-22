@@ -32,7 +32,7 @@ const FlowCanvas = () => {
     setNodes((prevNodes) => {
       const newNode = {
         id: `node-${prevNodes.length + 1}`,
-        type: 'textNode',
+        type: item.type,
         position,
         data: { value: 'textNode' },
       };
@@ -79,7 +79,9 @@ const FlowCanvas = () => {
       let remainingNodes = [...nodes];
 
       // Check if the selected node is being deleted
-      const isSelectedNodeDeleted = deleted.some(node => node.id === selectedNode?.id);
+      const isSelectedNodeDeleted = deleted.some(
+        (node) => node.id === selectedNode?.id
+      );
       if (isSelectedNodeDeleted) {
         setSelectedNode(null);
       }
@@ -90,25 +92,30 @@ const FlowCanvas = () => {
           const outgoers = getOutgoers(node, remainingNodes, acc);
           const connectedEdges = getConnectedEdges([node], acc);
 
-          const remainingEdges = acc.filter((edge) => !connectedEdges.includes(edge));
+          const remainingEdges = acc.filter(
+            (edge) => !connectedEdges.includes(edge)
+          );
 
           const createdEdges = incomers.flatMap(({ id: source }) =>
             outgoers.map(({ id: target }) => ({
               id: `${source}->${target}`,
               source,
               target,
-            })),
+            }))
           );
 
           remainingNodes = remainingNodes.filter((rn) => rn.id !== node.id);
 
           return [...remainingEdges, ...createdEdges];
-        }, edges),
+        }, edges)
       );
     },
-    [nodes, edges, selectedNode, setSelectedNode],
+    [nodes, edges, selectedNode, setSelectedNode]
   );
 
+  const onPaneClick = useCallback(() => {
+    setSelectedNode(null);
+  }, []);
 
   const styledNodes = nodes?.map((node) => ({
     ...node,
@@ -129,6 +136,7 @@ const FlowCanvas = () => {
         onNodesDelete={onNodesDelete}
         onConnect={onConnect}
         onNodeClick={onNodeClick}
+        onPaneClick={onPaneClick}
         fitView
       />
     </div>
