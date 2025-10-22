@@ -14,5 +14,6 @@ const styles = {
     border: '1px solid blue',
     color: 'blue',
     backgroundColor: '#fff',
+    cursor: 'pointer',
   },
 };

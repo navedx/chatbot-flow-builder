@@ -22,7 +22,7 @@
   padding: 3px 12px;
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 1px;
 }
 
 .message-node-header p {

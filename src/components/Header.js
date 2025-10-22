@@ -7,22 +7,27 @@ export default function Header() {
   const { edges } = useEdges();
 
   const handleSave = () => {
-    // 1️⃣ Validate: multiple disconnected nodes
+    if (nodes.length === 0) {
+      toast.error('No nodes to save', { style : { background: '#fdcacb' } });
+      return;
+    }
+
+    // 1️. Check for disconnected nodes
     const nodesWithoutTarget = nodes?.filter(
       node => !edges.some(edge => edge.target === node.id)
     );
 
     if (nodes.length > 1 && nodesWithoutTarget.length > 1) {
-      toast.error('Cannot save flow: multiple nodes have no incoming connections');
-      return; // stop saving
+      toast.error('Cannot save flow', { style : { background: '#fdcacb' } });
+      return; 
     }
 
-    // 2️⃣ Clean nodes & edges for serialization
+    // 2. Clean nodes & edges
     const cleanNodes = nodes.map(({ id, type, position, data }) => ({
       id,
       type,
       position,
-      data, // make sure data is plain JSON
+      data,
     }));
 
     const cleanEdges = edges.map(({ id, source, target, animated, label }) => ({
@@ -33,11 +38,9 @@ export default function Header() {
       label,
     }));
 
-    // 3️⃣ Save (localStorage or send to backend)
+    // 3 Save
     const flow = { nodes: cleanNodes, edges: cleanEdges };
     localStorage.setItem('flow', JSON.stringify(flow));
-
-    // 4️⃣ Success toast
     toast.success('Flow saved successfully!');
   };
   return (

@@ -1,4 +1,5 @@
 import { useNodeData, useSelectedNode } from '../../context';
+import { ArrowLeftIcon } from '../ui/Icons';
 
 export default function SettingsPanel() {
   const { setNodes } = useNodeData();
@@ -22,8 +23,9 @@ export default function SettingsPanel() {
   }
 
   return (
-    <div className="panel">
+    <div className="panel panel-column">
       <div className="settings-header">
+        <ArrowLeftIcon onClick={() => setSelectedNode(null)} style={{ cursor: 'pointer' }}/>
         <p>Message</p>
       </div>
       <div className="settings-content">
