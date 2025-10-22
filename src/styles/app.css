@@ -9,6 +9,14 @@ body {
   padding: 0;
 }
 
+p {
+  margin: 0;
+}
+
+textarea:focus { 
+  border-color: black;
+}
+
 .header {
   background-color: #f0f0f0;
   display: flex;
@@ -27,9 +35,31 @@ body {
 
 .panel {
   width: 30%;
-  padding: 1rem;
+  /* padding: 1rem; */
   border-left: 1px solid #ccc;
   border-top: 1px solid #ccc;
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #ccc;
+  padding: 1rem;
+}
+
+.settings-content {
+  margin: 2rem;
+  color: #ccc;
+  font-size: 14px;
+}
+
+.settings-content textarea {
+  width: 100%;
+  border-radius: 6px;
+  border-color: #ccc;
+  outline: none;
+  padding: 0.5rem;
 }
 
 .panel--text-node {
@@ -42,6 +72,7 @@ body {
   border-radius: 8px;
   cursor: pointer;
   color: blue;
+  margin: 1rem;
 }
 
 .react-flow__attribution {

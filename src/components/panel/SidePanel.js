@@ -1,11 +1,9 @@
-import { useSelectedNode } from "../../context/SelectedNodeContext"
-import NodesPanel from "./NodesPanel";
-import SettingsPanel from "./SettingsPanel";
+import { useSelectedNode } from '../../context/SelectedNodeContext';
+import NodesPanel from './NodesPanel';
+import SettingsPanel from './SettingsPanel';
 
 export default function SidePanel() {
-    const { selectedNodeId, setSelectedNodeId } = useSelectedNode();
+  const { selectedNode } = useSelectedNode();
 
-    return (
-        selectedNodeId ? <SettingsPanel /> : <NodesPanel />
-    )
+  return selectedNode ? <SettingsPanel /> : <NodesPanel />;
 }

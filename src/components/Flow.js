@@ -1,11 +1,18 @@
-import { useState, useRef, useCallback } from 'react';
-import { ReactFlow, ReactFlowProvider, useReactFlow, applyNodeChanges, addEdge } from '@xyflow/react';
+import { useState, useRef, useCallback, useEffect } from 'react';
+import {
+  ReactFlow,
+  ReactFlowProvider,
+  useReactFlow,
+  applyNodeChanges,
+  addEdge,
+} from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { TextNode } from './nodes/TextNode';
 import { CustomEdge } from './CustomEdge';
 import { useDrop } from 'react-dnd';
 import { TEXT_NODE } from '../constants';
 import { useSelectedNode } from '../context/SelectedNodeContext';
+import { useNodeData } from '../context/NodeDataContext';
 
 const nodeTypes = { textNode: TextNode };
 const edgeTypes = {
@@ -13,9 +20,9 @@ const edgeTypes = {
 };
 
 const FlowCanvas = () => {
-  const [nodes, setNodes] = useState([]);
+  const { nodes, setNodes } = useNodeData();
   const [edges, setEdges] = useState([]);
-  const { selectedNodeId, setSelectedNodeId } = useSelectedNode();
+  const { selectedNode, setSelectedNode } = useSelectedNode();
   const reactFlowWrapper = useRef(null);
   const { screenToFlowPosition } = useReactFlow();
 
@@ -43,7 +50,7 @@ const FlowCanvas = () => {
         y: clientOffset.y,
       });
 
-      addNode(item, position)
+      addNode(item, position);
     },
   }));
 
@@ -62,14 +69,14 @@ const FlowCanvas = () => {
 
   const onNodeClick = useCallback((event, node) => {
     // toggle: if the clicked node is already selected, deselect it
-    setSelectedNodeId((prev) => (prev === node.id ? null : node.id));
+    setSelectedNode((prev) => (prev?.id === node?.id ? null : node));
   }, []);
 
-  const styledNodes = nodes.map((node) => ({
+  const styledNodes = nodes?.map((node) => ({
     ...node,
     style: {
-      border: node.id === selectedNodeId ? "2px solid blue" : "",
-      borderRadius: 5
+      border: node.id === selectedNode?.id ? '2px solid blue' : '',
+      borderRadius: 5,
     },
   }));
 
@@ -87,7 +94,7 @@ const FlowCanvas = () => {
       />
     </div>
   );
-}
+};
 
 export default function Flow() {
   return (
@@ -96,4 +103,3 @@ export default function Flow() {
     </ReactFlowProvider>
   );
 }
-
