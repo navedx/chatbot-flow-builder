@@ -56,19 +56,7 @@ npm start
 - **React Hot Toast** - Toast notifications
 - **CSS** - Styling
 
-## Project Structure
-src/
-├── components/
-│   ├── Flow.js          # Main flow canvas
-│   ├── Header.js         # Save button
-│   ├── nodes/            # Node components
-│   ├── panel/            # Side panels
-│   └── ui/               # UI components
-├── context/              # React contexts
-├── styles/               # CSS files
-└── constants.js          # App constants
-
-##Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
